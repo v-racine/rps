@@ -5,7 +5,8 @@ const VALID_CHOICES = ["rock", "paper", "scissors"];
 function startRPSGame() {
   greeting();
   while (true) {
-    const userChoice = getUserChoice();
+    const userSelection = getUserSelection();
+    const userChoice = validateUserChoice(userSelection);
     const computerChoice = determineComputerChoice();
     displayChoices(userChoice, computerChoice);
     const winner = determineWinner(userChoice, computerChoice);
@@ -27,18 +28,33 @@ function greeting() {
   printMessage("Welcome to the game of 'Rock, Paper, Scissors'!");
 }
 
-function getUserChoice() {
+function getUserSelection() {
   printMessage(
     `Please choose one of the following options: ${VALID_CHOICES.join(", ")}.`
   );
-  let choice = readline.question();
+  let choice = readline.question().toLowerCase();
 
-  while (!VALID_CHOICES.includes(choice)) {
+  while (
+    !VALID_CHOICES.includes(choice) &&
+    choice !== "r" &&
+    choice !== "p" &&
+    choice !== "s"
+  ) {
     printMessage("Oops! That's not a valid choice. Please choose again.");
     choice = readline.question();
   }
 
-  return choice;
+  return choice[0];
+}
+
+function validateUserChoice(userSelection) {
+  if (userSelection[0] === "r") {
+    return "rock";
+  } else if (userSelection[0] === "p") {
+    return "paper";
+  } else {
+    return "scissors";
+  }
 }
 
 function determineComputerChoice() {
