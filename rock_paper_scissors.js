@@ -15,7 +15,7 @@ function startRPSGame() {
     console.clear();
   }
 
-  prompt("Thanks for playing! Goodbye!");
+  printMessage("Thanks for playing! Goodbye!");
 }
 
 startRPSGame();
@@ -24,17 +24,17 @@ startRPSGame();
 
 function greeting() {
   console.clear();
-  prompt("Welcome to the game of 'Rock, Paper, Scissors'!");
+  printMessage("Welcome to the game of 'Rock, Paper, Scissors'!");
 }
 
 function getUserChoice() {
-  prompt(
+  printMessage(
     `Please choose one of the following options: ${VALID_CHOICES.join(", ")}.`
   );
   let choice = readline.question();
 
   while (!VALID_CHOICES.includes(choice)) {
-    prompt("Oops! That's not a valid choice. Please choose again.");
+    printMessage("Oops! That's not a valid choice. Please choose again.");
     choice = readline.question();
   }
 
@@ -49,42 +49,48 @@ function determineComputerChoice() {
 }
 
 function displayChoices(userChoice, computerChoice) {
-  prompt(`You chose ${userChoice}, I chose ${computerChoice}.`);
+  printMessage(`You chose ${userChoice}, I chose ${computerChoice}.`);
 }
 
 function determineWinner(userChoice, computerChoice) {
-  if (
-    (userChoice === "rock" && computerChoice === "scissors") ||
-    (userChoice === "paper" && computerChoice === "rock") ||
-    (userChoice === "scissors" && computerChoice === "paper")
-  ) {
-    return "You win!";
-  } else if (
-    (userChoice === "rock" && computerChoice === "paper") ||
-    (userChoice === "paper" && computerChoice === "scissors") ||
-    (userChoice === "scissors" && computerChoice === "rock")
-  ) {
-    return "I win!";
-  } else {
-    return "It's a tie!";
-  }
+  const userWinsMsg = "You win!";
+  const compWinsMsg = "I win!";
+  const tieMsg = "It's a tie!";
+  const gameResults = {
+    rock: {
+      rock: tieMsg,
+      paper: compWinsMsg,
+      scissors: userWinsMsg,
+    },
+    paper: {
+      rock: userWinsMsg,
+      paper: tieMsg,
+      scissors: compWinsMsg,
+    },
+    scissors: {
+      rock: compWinsMsg,
+      paper: userWinsMsg,
+      scissors: tieMsg,
+    },
+  };
+  return gameResults[userChoice][computerChoice];
 }
 
 function displayWinner(winner) {
-  prompt(winner);
+  printMessage(winner);
 }
 
 function keepPlaying() {
-  prompt("Do you want to play again? Choose 'y' or 'n'.");
+  printMessage("Do you want to play again? Choose 'y' or 'n'.");
   anotherGame = readline.question().toLowerCase();
 
   while (anotherGame[0] !== "n" && anotherGame[0] !== "y") {
-    prompt("Please enter 'y or 'n').");
+    printMessage("Please enter 'y or 'n').");
     anotherGame = readline.question().toLocaleLowerCase();
   }
   return anotherGame.toLocaleLowerCase();
 }
 
-function prompt(message) {
+function printMessage(message) {
   console.log(`=> ${message}`);
 }

@@ -1,25 +1,23 @@
-function determineWinner(userChoice, computerChoice) {
-  if (
-    (userChoice === "rock" && computerChoice === "scissors") ||
-    (userChoice === "paper" && computerChoice === "rock") ||
-    (userChoice === "scissors" && computerChoice === "paper")
-  ) {
-    return "user wins";
-  } else if (
-    (userChoice === "rock" && computerChoice === "paper") ||
-    (userChoice === "paper" && computerChoice === "scissors") ||
-    (userChoice === "scissors" && computerChoice === "rock")
-  ) {
-    return "computer wins";
-  } else {
-    return "tie";
-  }
-}
-
-console.log(determineWinner("rock", "paper"));
+// function determineWinner(userChoice, computerChoice) {
+//   if (
+//     (userChoice === "rock" && computerChoice === "scissors") ||
+//     (userChoice === "paper" && computerChoice === "rock") ||
+//     (userChoice === "scissors" && computerChoice === "paper")
+//   ) {
+//     return "user wins";
+//   } else if (
+//     (userChoice === "rock" && computerChoice === "paper") ||
+//     (userChoice === "paper" && computerChoice === "scissors") ||
+//     (userChoice === "scissors" && computerChoice === "rock")
+//   ) {
+//     return "computer wins";
+//   } else {
+//     return "tie";
+//   }
+// }
 
 //fix function:
-function gameResults() {
+function determineWinner(userChoice, computerChoice) {
   const userWinsMsg = "You win!";
   const compWinsMsg = "I win!";
   const tieMsg = "It's a tie!";
@@ -34,9 +32,16 @@ function gameResults() {
       paper: tieMsg,
       scissors: compWinsMsg,
     },
-    scissors: {},
+    scissors: {
+      rock: compWinsMsg,
+      paper: userWinsMsg,
+      scissors: tieMsg,
+    },
   };
   return gameResults[userChoice][computerChoice];
 }
 
-//change name of prompt function
+console.log(determineWinner("paper", "rock"));
+
+//improve input validation features
+//add feature: best of 5
