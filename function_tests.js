@@ -124,20 +124,3 @@ function playRound(userChoice, computerChoice) {
   };
   return gameResults[userChoice][computerChoice];
 }
-
-function scoreTracker(winner) {
-  if (winner === USER_WINS_ROUND) {
-    userScore++;
-  } else if (winner === COMP_WINS_ROUND) {
-    compScore++;
-  } else {
-    tie++;
-  }
-
-  if (userScore === 3) {
-    console.log(USER_WINS_GAME);
-  }
-  if (compScore === 3) {
-    console.log(COMP_WINS_GAME);
-  }
-}
