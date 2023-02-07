@@ -94,16 +94,6 @@ const TIE_MSG = "It's a tie!";
 const USER_WINS_GAME = "You win the game!";
 const COMP_WINS_GAME = "I win the game!";
 
-let userScore = 0;
-let compScore = 0;
-let tie = 0;
-
-//assumed functions
-// const userSelection = getUserSelection();
-// const userChoice = validateUserChoice(userSelection);
-// const computerChoice = determineComputerChoice();
-// displayChoices(userChoice, computerChoice);
-
 function playRound(userChoice, computerChoice) {
   const gameResults = {
     rock: {
