@@ -21,8 +21,9 @@ function startRPSGame() {
       const computerChoice = determineComputerChoice();
       displayChoices(userChoice, computerChoice);
       const winner = playRound(userChoice, computerChoice);
-      displayWinner(winner);
+      //displayRoundWinner(winner);
       scoreTracker(winner);
+      displayGameWinner(userScore, compScore);
 
       if (userScore === 3 || compScore === 3) {
         break;
@@ -106,19 +107,30 @@ function playRound(userChoice, computerChoice) {
   return gameResults[userChoice][computerChoice];
 }
 
-function displayWinner(winner) {
-  printMessage(winner);
-}
+// function displayRoundWinner(winner) {
+//   printMessage(winner);
+// }
 
 function scoreTracker(winner) {
   if (winner === USER_WINS_ROUND) {
     userScore++;
+    printMessage(
+      `${USER_WINS_ROUND} Your score is ${userScore}. My score is ${compScore}.`
+    );
   } else if (winner === COMP_WINS_ROUND) {
     compScore++;
+    printMessage(
+      `${COMP_WINS_ROUND} Your score is ${userScore}. My score is ${compScore}.`
+    );
   } else {
     tie++;
+    printMessage(
+      `${TIE_MSG} Your score is ${userScore}. My score is ${compScore}.`
+    );
   }
+}
 
+function displayGameWinner(userScore, compScore) {
   if (userScore === 3) {
     printMessage(USER_WINS_GAME);
   }
