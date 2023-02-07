@@ -21,7 +21,6 @@ function startRPSGame() {
       const computerChoice = determineComputerChoice();
       displayChoices(userChoice, computerChoice);
       const winner = playRound(userChoice, computerChoice);
-      //displayRoundWinner(winner);
       scoreTracker(winner);
       displayGameWinner(userScore, compScore);
 
@@ -32,6 +31,8 @@ function startRPSGame() {
     const anotherGame = keepPlaying();
     if (anotherGame[0] !== "y") break;
     console.clear();
+    userScore = 0;
+    compScore = 0;
   }
 
   printMessage("Thanks for playing! Goodbye!");
@@ -106,10 +107,6 @@ function playRound(userChoice, computerChoice) {
   };
   return gameResults[userChoice][computerChoice];
 }
-
-// function displayRoundWinner(winner) {
-//   printMessage(winner);
-// }
 
 function scoreTracker(winner) {
   if (winner === USER_WINS_ROUND) {
