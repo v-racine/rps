@@ -56,35 +56,3 @@ function playRound(userChoice, computerChoice) {
   };
   return gameResults[userChoice][computerChoice];
 }
-
-//main function
-
-function startRPSGame() {
-  greeting();
-  while (true) {
-    // the condition of the while loop is anotherGame[0] === 'y'; remove break statement
-    for (let i = 0; i < 100; i++) {
-      // this should be a while loop with condition userScore !== 3 && compScore !== 3; rm the break statement
-      const userSelection = getUserSelection();
-      const userChoice = validateUserChoice(userSelection);
-      const computerChoice = determineComputerChoice();
-      displayChoices(userChoice, computerChoice);
-      const winner = playRound(userChoice, computerChoice);
-      scoreTracker(winner);
-      displayGameWinner(userScore, compScore);
-
-      if (userScore === 3 || compScore === 3) {
-        break;
-      }
-    }
-    const anotherGame = keepPlaying();
-    if (anotherGame[0] !== "y") break;
-    console.clear();
-    userScore = 0;
-    compScore = 0;
-  }
-
-  printMessage("Thanks for playing! Goodbye!");
-}
-
-startRPSGame();

@@ -7,23 +7,23 @@ const TIE_MSG = "It's a tie!";
 const USER_WINS_GAME = "You win the game!";
 const COMP_WINS_GAME = "I win the game!";
 
-let scoreBoard = { userScore: 0, compScore: 0 };
-
 //main function
 function startRPSGame() {
   greeting();
-  while (true) {
+  const scoreBoard = { userScore: 0, compScore: 0 };
+  let anotherGame = "y";
+  while (anotherGame[0] === "y") {
     while (scoreBoard.userScore !== 3 && scoreBoard.compScore !== 3) {
       const userSelection = getUserSelection();
       const userChoice = validateUserChoice(userSelection);
       const computerChoice = determineComputerChoice();
       displayChoices(userChoice, computerChoice);
       const winner = playRound(userChoice, computerChoice);
-      scoreTracker(winner);
+      scoreTracker(winner, scoreBoard);
+      displayScores(scoreBoard, winner);
       displayGameWinner(scoreBoard);
     }
-    const anotherGame = keepPlaying();
-    if (anotherGame[0] !== "y") break;
+    anotherGame = keepPlaying();
     console.clear();
     scoreBoard.userScore = 0;
     scoreBoard.compScore = 0;
@@ -38,7 +38,9 @@ startRPSGame();
 
 function greeting() {
   console.clear();
-  printMessage("Welcome to the game of 'Rock, Paper, Scissors'!");
+  printMessage(
+    "Welcome to the game of 'Rock, Paper, Scissors'! Let's play a Best-of-Five tournament!"
+  );
 }
 
 function getUserSelection() {
@@ -102,24 +104,19 @@ function playRound(userChoice, computerChoice) {
   return gameResults[userChoice][computerChoice];
 }
 
-// separate logic of updating scoreboard and printing message to user
-function scoreTracker(winner) {
+function scoreTracker(winner, scoreBoard) {
   if (winner === USER_WINS_ROUND) {
     scoreBoard.userScore++;
-    printMessage(
-      `${USER_WINS_ROUND} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
-    );
   } else if (winner === COMP_WINS_ROUND) {
     scoreBoard.compScore++;
-    printMessage(
-      `${COMP_WINS_ROUND} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
-    );
-  } else {
-    // tie++;
-    printMessage(
-      `${TIE_MSG} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
-    );
   }
+}
+
+function displayScores(scoreBoard, msg) {
+  printMessage(
+    `${msg} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
+  );
+  console.log("SCOREBOARD:", scoreBoard);
 }
 
 function displayGameWinner(scoreBoard) {
