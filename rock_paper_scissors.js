@@ -7,29 +7,26 @@ const TIE_MSG = "It's a tie!";
 const USER_WINS_GAME = "You win the game!";
 const COMP_WINS_GAME = "I win the game!";
 
-// make the scoreboard an object that is passed around and manipulated appropriate rather than disjoint and global values
-let userScore = 0;
-let compScore = 0;
-let tie = 0;
+let scoreBoard = { userScore: 0, compScore: 0 };
 
 //main function
 function startRPSGame() {
   greeting();
   while (true) {
-    while (userScore !== 3 && compScore !== 3) {
+    while (scoreBoard.userScore !== 3 && scoreBoard.compScore !== 3) {
       const userSelection = getUserSelection();
       const userChoice = validateUserChoice(userSelection);
       const computerChoice = determineComputerChoice();
       displayChoices(userChoice, computerChoice);
       const winner = playRound(userChoice, computerChoice);
       scoreTracker(winner);
-      displayGameWinner(userScore, compScore);
+      displayGameWinner(scoreBoard);
     }
     const anotherGame = keepPlaying();
     if (anotherGame[0] !== "y") break;
     console.clear();
-    userScore = 0;
-    compScore = 0;
+    scoreBoard.userScore = 0;
+    scoreBoard.compScore = 0;
   }
 
   printMessage("Thanks for playing! Goodbye!");
@@ -105,32 +102,31 @@ function playRound(userChoice, computerChoice) {
   return gameResults[userChoice][computerChoice];
 }
 
-// given first comment, this will need refactored
 // separate logic of updating scoreboard and printing message to user
 function scoreTracker(winner) {
   if (winner === USER_WINS_ROUND) {
-    userScore++;
+    scoreBoard.userScore++;
     printMessage(
-      `${USER_WINS_ROUND} Your score is ${userScore}. My score is ${compScore}.`
+      `${USER_WINS_ROUND} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
     );
   } else if (winner === COMP_WINS_ROUND) {
-    compScore++;
+    scoreBoard.compScore++;
     printMessage(
-      `${COMP_WINS_ROUND} Your score is ${userScore}. My score is ${compScore}.`
+      `${COMP_WINS_ROUND} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
     );
   } else {
-    tie++;
+    // tie++;
     printMessage(
-      `${TIE_MSG} Your score is ${userScore}. My score is ${compScore}.`
+      `${TIE_MSG} Your score is ${scoreBoard.userScore}. My score is ${scoreBoard.compScore}.`
     );
   }
 }
 
-function displayGameWinner(userScore, compScore) {
-  if (userScore === 3) {
+function displayGameWinner(scoreBoard) {
+  if (scoreBoard.userScore === 3) {
     printMessage(USER_WINS_GAME);
   }
-  if (compScore === 3) {
+  if (scoreBoard.compScore === 3) {
     printMessage(COMP_WINS_GAME);
   }
 }
