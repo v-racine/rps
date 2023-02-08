@@ -7,6 +7,7 @@ const TIE_MSG = "It's a tie!";
 const USER_WINS_GAME = "You win the game!";
 const COMP_WINS_GAME = "I win the game!";
 
+// make the scoreboard an object that is passed around and manipulated appropriate rather than disjoint and global values
 let userScore = 0;
 let compScore = 0;
 let tie = 0;
@@ -15,7 +16,7 @@ let tie = 0;
 function startRPSGame() {
   greeting();
   while (true) {
-    for (let i = 0; i < 100; i++) {
+    while (userScore !== 3 && compScore !== 3) {
       const userSelection = getUserSelection();
       const userChoice = validateUserChoice(userSelection);
       const computerChoice = determineComputerChoice();
@@ -23,10 +24,6 @@ function startRPSGame() {
       const winner = playRound(userChoice, computerChoice);
       scoreTracker(winner);
       displayGameWinner(userScore, compScore);
-
-      if (userScore === 3 || compScore === 3) {
-        break;
-      }
     }
     const anotherGame = keepPlaying();
     if (anotherGame[0] !== "y") break;
@@ -108,6 +105,8 @@ function playRound(userChoice, computerChoice) {
   return gameResults[userChoice][computerChoice];
 }
 
+// given first comment, this will need refactored
+// separate logic of updating scoreboard and printing message to user
 function scoreTracker(winner) {
   if (winner === USER_WINS_ROUND) {
     userScore++;
