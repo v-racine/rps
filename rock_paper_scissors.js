@@ -27,7 +27,7 @@ function startRPSGame() {
       displayScores(scoreBoard, winner);
       displayGameWinner(scoreBoard);
     }
-    anotherGame = keepPlaying();
+    anotherGame = keepPlaying(anotherGame);
     console.clear();
     scoreBoard.userScore = 0;
     scoreBoard.compScore = 0;
@@ -132,7 +132,7 @@ function displayGameWinner(scoreBoard) {
   }
 }
 
-function keepPlaying() {
+function keepPlaying(anotherGame) {
   let validYesOrNo = ["yes", "no"];
 
   printMessage(
