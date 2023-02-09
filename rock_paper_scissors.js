@@ -32,8 +32,7 @@ function startRPSGame() {
     scoreBoard.userScore = 0;
     scoreBoard.compScore = 0;
   }
-
-  printMessage("Thanks for playing! Goodbye!");
+  printFarewell();
 }
 
 startRPSGame();
@@ -149,6 +148,10 @@ function keepPlaying(anotherGame) {
     anotherGame = readline.question().toLocaleLowerCase();
   }
   return anotherGame;
+}
+
+function printFarewell() {
+  printMessage("Thanks for playing! Goodbye!");
 }
 
 function printMessage(message) {
