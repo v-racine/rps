@@ -1,5 +1,6 @@
 const readline = require("readline-sync");
 const VALID_CHOICES = ["rock", "paper", "scissors"];
+const END_OF_TOURNAMENT = 3;
 
 const USER_WINS_ROUND = "You win this round!";
 const COMP_WINS_ROUND = "I win this round!";
@@ -13,7 +14,10 @@ function startRPSGame() {
   const scoreBoard = { userScore: 0, compScore: 0 };
   let anotherGame = "y";
   while (anotherGame[0] === "y") {
-    while (scoreBoard.userScore !== 3 && scoreBoard.compScore !== 3) {
+    while (
+      scoreBoard.userScore !== END_OF_TOURNAMENT &&
+      scoreBoard.compScore !== END_OF_TOURNAMENT
+    ) {
       const userSelection = getUserSelection();
       const userChoice = validateUserChoice(userSelection);
       const computerChoice = determineComputerChoice();
@@ -120,10 +124,10 @@ function displayScores(scoreBoard, msg) {
 }
 
 function displayGameWinner(scoreBoard) {
-  if (scoreBoard.userScore === 3) {
+  if (scoreBoard.userScore === END_OF_TOURNAMENT) {
     printMessage(USER_WINS_GAME);
   }
-  if (scoreBoard.compScore === 3) {
+  if (scoreBoard.compScore === END_OF_TOURNAMENT) {
     printMessage(COMP_WINS_GAME);
   }
 }
