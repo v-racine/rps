@@ -21,14 +21,8 @@ function startRPSGame() {
       scoreBoard.userScore !== END_OF_TOURNAMENT &&
       scoreBoard.compScore !== END_OF_TOURNAMENT
     ) {
-      const userSelection = getUserSelection();
-      const userChoice = validateUserChoice(userSelection);
-      const computerChoice = determineComputerChoice();
-      displayChoices(userChoice, computerChoice);
-      const winner = playRound(userChoice, computerChoice);
-      scoreTracker(winner, scoreBoard);
-      displayScores(scoreBoard, winner);
-      displayGameWinner(scoreBoard);
+      const { userChoice, computerChoice } = gameSetup();
+      playGame(userChoice, computerChoice, scoreBoard);
     }
     anotherGame = keepPlaying(anotherGame);
     console.clear();
@@ -41,6 +35,21 @@ function startRPSGame() {
 startRPSGame();
 
 //helper functions
+
+function gameSetup() {
+  const userSelection = getUserSelection();
+  const userChoice = validateUserChoice(userSelection);
+  const computerChoice = determineComputerChoice();
+  displayChoices(userChoice, computerChoice);
+  return { userChoice, computerChoice };
+}
+
+function playGame(userChoice, computerChoice, scoreBoard) {
+  const winner = playRound(userChoice, computerChoice);
+  scoreTracker(winner, scoreBoard);
+  displayScores(scoreBoard, winner);
+  displayGameWinner(scoreBoard);
+}
 
 function greeting() {
   console.clear();
@@ -60,7 +69,7 @@ function getUserSelection() {
     !SHORT_VALID_CHOICES.includes(choice)
   ) {
     printMessage("Oops! That's not a valid choice. Please choose again.");
-    choice = readline.question();
+    choice = readline.question().toLowerCase();
   }
 
   return choice[0].toLowerCase();
