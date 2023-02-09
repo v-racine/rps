@@ -72,8 +72,10 @@ function validateUserChoice(userSelection) {
     return "rock";
   } else if (userSelection[0] === "p") {
     return "paper";
-  } else {
+  } else if (userSelection[0] === "s") {
     return "scissors";
+  } else {
+    return printMessage("invalid user choice");
   }
 }
 
