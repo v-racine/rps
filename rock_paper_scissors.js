@@ -2,11 +2,13 @@ const readline = require("readline-sync");
 const VALID_CHOICES = ["rock", "paper", "scissors"];
 const END_OF_TOURNAMENT = 3;
 
-const USER_WINS_ROUND = "You win this round!";
-const COMP_WINS_ROUND = "I win this round!";
-const TIE_MSG = "It's a tie!";
-const USER_WINS_GAME = "You win the game!";
-const COMP_WINS_GAME = "I win the game!";
+const MESSAGES = {
+  userWinsRound: "You win this round!",
+  compWinsRound: "I win this round!",
+  tieMsg: "It's a tie!",
+  userWinsGame: "You win the game!",
+  compWinsGame: "I win the game!",
+};
 
 //main function
 function startRPSGame() {
@@ -89,28 +91,28 @@ function displayChoices(userChoice, computerChoice) {
 function playRound(userChoice, computerChoice) {
   const gameResults = {
     rock: {
-      rock: TIE_MSG,
-      paper: COMP_WINS_ROUND,
-      scissors: USER_WINS_ROUND,
+      rock: MESSAGES.tieMsg,
+      paper: MESSAGES.compWinsRound,
+      scissors: MESSAGES.userWinsRound,
     },
     paper: {
-      rock: USER_WINS_ROUND,
-      paper: TIE_MSG,
-      scissors: COMP_WINS_ROUND,
+      rock: MESSAGES.userWinsRound,
+      paper: MESSAGES.tieMsg,
+      scissors: MESSAGES.compWinsRound,
     },
     scissors: {
-      rock: COMP_WINS_ROUND,
-      paper: USER_WINS_ROUND,
-      scissors: TIE_MSG,
+      rock: MESSAGES.compWinsRound,
+      paper: MESSAGES.userWinsRound,
+      scissors: MESSAGES.tieMsg,
     },
   };
   return gameResults[userChoice][computerChoice];
 }
 
 function scoreTracker(winner, scoreBoard) {
-  if (winner === USER_WINS_ROUND) {
+  if (winner === MESSAGES.userWinsRound) {
     scoreBoard.userScore++;
-  } else if (winner === COMP_WINS_ROUND) {
+  } else if (winner === MESSAGES.compWinsRound) {
     scoreBoard.compScore++;
   }
 }
@@ -124,10 +126,10 @@ function displayScores(scoreBoard, msg) {
 
 function displayGameWinner(scoreBoard) {
   if (scoreBoard.userScore === END_OF_TOURNAMENT) {
-    printMessage(USER_WINS_GAME);
+    printMessage(MESSAGES.userWinsGame);
   }
   if (scoreBoard.compScore === END_OF_TOURNAMENT) {
-    printMessage(COMP_WINS_GAME);
+    printMessage(MESSAGES.compWinsGame);
   }
 }
 
