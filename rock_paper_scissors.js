@@ -1,5 +1,6 @@
 const readline = require("readline-sync");
 const VALID_CHOICES = ["rock", "paper", "scissors"];
+const SHORT_VALID_CHOICES = ["r", "p", "s"];
 const END_OF_TOURNAMENT = 3;
 
 const MESSAGES = {
@@ -56,15 +57,13 @@ function getUserSelection() {
 
   while (
     !VALID_CHOICES.includes(choice) &&
-    choice !== "r" &&
-    choice !== "p" &&
-    choice !== "s"
+    !SHORT_VALID_CHOICES.includes(choice)
   ) {
     printMessage("Oops! That's not a valid choice. Please choose again.");
     choice = readline.question();
   }
 
-  return choice[0];
+  return choice[0].toLowerCase();
 }
 
 function validateUserChoice(userSelection) {
